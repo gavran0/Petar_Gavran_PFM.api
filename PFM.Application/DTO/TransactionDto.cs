@@ -10,13 +10,14 @@ namespace PFM.Application.DTO
     public class TransactionDto
     {
         public string Id { get; set; }
-        public string CatCode { get; set; }
-        public string? CategoryName { get; set; } // novo polje
+        public string BeneficiaryName { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
         public Direction Direction { get; set; }
         public string? Description { get; set; }
         public TransactionKind Kind { get; set; }
+        public string CatCode { get; set; }
+        public string? CategoryName { get; set; }
         public List<TransactionSplitDto> Splits { get; set; } = new();
     }
 

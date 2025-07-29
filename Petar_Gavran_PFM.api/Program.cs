@@ -19,7 +19,17 @@ builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ICategoryImporter, CsvCategoryImporter>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
-
+builder.Services.AddScoped<IRuleLoaderService, RuleLoaderService>();
+builder.Services.AddScoped<IAutoCategorizationService, AutoCategorizationService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 
 var app = builder.Build();
@@ -30,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAngularClient");
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 

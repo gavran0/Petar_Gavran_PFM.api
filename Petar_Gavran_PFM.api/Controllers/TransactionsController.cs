@@ -16,11 +16,13 @@ namespace Petar_Gavran_PFM.api.Controllers
     {
         private readonly ITransactionImporter _importer;
         private readonly ITransactionService _transactionService;
+        private readonly IAutoCategorizationService _autoCategorizationService;
 
-        public TransactionsController(ITransactionImporter importer, ITransactionService transactionService)
+        public TransactionsController(ITransactionImporter importer, ITransactionService transactionService, IAutoCategorizationService autoCategorizationService)
         {
             _importer = importer;
             _transactionService = transactionService;
+            _autoCategorizationService = autoCategorizationService;
         }
 
         [HttpGet]
@@ -114,7 +116,7 @@ namespace Petar_Gavran_PFM.api.Controllers
                 if (!success)
                     return NotFound();
 
-                return Ok();
+                return Ok(new { message = "Transaction split successfully." });
             }
             catch (BusinessValidationException ex)
             {
@@ -127,6 +129,14 @@ namespace Petar_Gavran_PFM.api.Controllers
             }
         }
 
-
+        [HttpPost("auto-categorize")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AutoCategorize()
+        {
+            int updated = await _autoCategorizationService.AutoCategorizeAsync();
+            return Ok(new { message = $"Auto-categorization completed. {updated} transactions updated." });
+        }
     }
 }

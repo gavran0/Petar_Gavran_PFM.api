@@ -63,13 +63,14 @@ namespace PFM.Infrastructure.Services
                 .Select(t => new TransactionDto
                 {
                     Id = t.Id,
-                    CatCode = t.CatCode,
-                    CategoryName = t.Category != null ? t.Category.Name : null,
+                    BeneficiaryName = t.BeneficiaryName,
                     Amount = t.Amount,
                     Date = t.Date,
                     Direction = t.Direction,
                     Description = t.Description,
                     Kind = t.Kind,
+                    CatCode = t.CatCode,
+                    CategoryName = t.Category != null ? t.Category.Name : null,
                     Splits = t.Splits.Select(s => new TransactionSplitDto
                     {
                         Amount = s.Amount,

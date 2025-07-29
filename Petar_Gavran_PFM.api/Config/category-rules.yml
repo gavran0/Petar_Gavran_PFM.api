@@ -1,0 +1,44 @@
+﻿- Title: When beneficiary name contains "chevron" or "shell" categorize transaction as 4
+  CatCode: "4"
+  Predicate: "\"BeneficiaryName\" ILIKE '%chevron%' OR \"BeneficiaryName\" ILIKE '%shell%'"
+
+- Title: When mcc is 5811 (Caterers) categorize transaction as 39
+  CatCode: "39"
+  Predicate: "\"Mcc\" = 5811"
+
+- Title: When description is Internet bill categorize transaction as 10
+  CatCode: "10"
+  Predicate: "\"Description\" ILIKE '%Internet bill%'"
+
+- Title: When beneficiary name contains "Fit and Fun" categorize as I
+  CatCode: "I"
+  Predicate: "\"BeneficiaryName\" ILIKE '%Fit and Fun%'"
+
+- Title: When description is Supermarket shopping categorize transaction as P
+  CatCode: "P"
+  Predicate: "\"Description\" ILIKE '%Supermaket shopping%'"
+
+- Title: When description is Parking fee categorize transaction as 5
+  CatCode: "5"
+  Predicate: "\"Description\" ILIKE '%Parking fee%'"
+
+- Title: When kind of transaction is deposit categorize transaction as K
+  CatCode: "K"
+  Predicate: "\"Kind\" ILIKE '%dep%'"
+
+- Title: When beneficiary name contains "Revolut" categorize as 25
+  CatCode: "25"
+  Predicate: "\"BeneficiaryName\" ILIKE '%Revolut%'"
+
+- Title: When mcc is 5995 (Pet shops) categorize transaction as O
+  CatCode: "O"
+  Predicate: "\"Mcc\" = 5995"
+
+- Title: When description is Loan payment categorize transaction as 77
+  CatCode: "77"
+  Predicate: "\"Description\" ILIKE '%Loan Payment%'"
+
+- Title: When description is Phone categorize transaction as 11
+  CatCode: "11"
+  Predicate: "\"Description\" ILIKE '%Phone%'"
+
