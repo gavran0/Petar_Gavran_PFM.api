@@ -76,7 +76,7 @@ namespace PFM.Infrastructure.Services
             else
             {
                 var grouped = await query
-                    .GroupBy(x => new { x.CategoryCode, x.CategoryName })  // bez Direction
+                    .GroupBy(x => new { x.CategoryCode, x.CategoryName })
                     .Select(g => new SpendingAnalyticsItem
                     {
                         CategoryCode = g.Key.CategoryCode,

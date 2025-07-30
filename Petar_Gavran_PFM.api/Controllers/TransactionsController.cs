@@ -68,26 +68,6 @@ namespace Petar_Gavran_PFM.api.Controllers
             return Ok(new { importedCount = result.ImportedCount });
         }
 
-        [HttpPost("import-csv-text")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(BusinessErrorResponse), 440)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> ImportCsvFromText([FromBody] string csvText)
-        {
-            if (string.IsNullOrWhiteSpace(csvText))
-                return BadRequest(new { error = "CSV text cannot be empty." });
-
-            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(csvText));
-            var result = await _importer.ImportTransactionsAsync(stream);
-
-            if (result.Errors.Any())
-                return BadRequest(new { errors = result.Errors });
-
-            return Ok(new { importedCount = result.ImportedCount });
-        }
-
-
         [HttpPost("{id}/categorize")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

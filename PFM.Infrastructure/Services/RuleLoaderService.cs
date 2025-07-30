@@ -14,7 +14,6 @@ namespace PFM.Infrastructure.Services
 
         public RuleLoaderService(IConfiguration configuration)
         {
-            // Ova putanja očekuje da u folderu Config u izlaznom folderu postoji YAML fajl
             _filePath = Path.Combine(AppContext.BaseDirectory, "Config", "category-rules.yml");
         }
 

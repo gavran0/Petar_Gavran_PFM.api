@@ -42,11 +42,11 @@ namespace PFM.Infrastructure.Persistence
                 .HasColumnType("date");
 
             modelBuilder.Entity<Transactions>()
-                .HasOne(t => t.Category)                  // Transactions ima jednog Category-ja
-                .WithMany(c => c.Transactions)                          // ...ali ne koristimo navigaciju u Category klasi (nema List<Transactions>)
-                .HasForeignKey(t => t.CatCode)       // CatCode u Transactions je FOREIGN KEY
-                .HasPrincipalKey(c => c.Code)        // koji se vezuje za Code u Category kao PRIMARY KEY
-                .OnDelete(DeleteBehavior.Restrict);  // ako obrišeš Category — ne briši povezane Transactions
+                .HasOne(t => t.Category)
+                .WithMany(c => c.Transactions)                     
+                .HasForeignKey(t => t.CatCode)
+                .HasPrincipalKey(c => c.Code)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Category>()
                 .HasOne(c => c.ParentCategory)
@@ -64,7 +64,7 @@ namespace PFM.Infrastructure.Persistence
 
             modelBuilder.Entity<TransactionSplit>()
                 .HasOne(ts => ts.Category)
-                .WithMany()  // Nemamo List<TransactionSplit> u Category, pa prazno
+                .WithMany()
                 .HasForeignKey(ts => ts.CatCode)
                 .HasPrincipalKey(c => c.Code)
                 .OnDelete(DeleteBehavior.Restrict);

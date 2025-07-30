@@ -49,7 +49,6 @@ namespace PFM.Infrastructure.Services
                     return result;
                 }
 
-                //_context.Categories.AddRange(categories);
 
                 foreach (var cat in categories)
                 {
@@ -57,7 +56,7 @@ namespace PFM.Infrastructure.Services
                     if (existing != null)
                     {
                         existing.Name = cat.Name;
-                        existing.ParentCode = null; // postavi null dok ne ažuriramo
+                        existing.ParentCode = null;
                     }
                     else
                     {
@@ -65,14 +64,13 @@ namespace PFM.Infrastructure.Services
                         {
                             Code = cat.Code,
                             Name = cat.Name,
-                            ParentCode = null // privremeno null
+                            ParentCode = null
                         });
                     }
                 }
 
                 await _context.SaveChangesAsync();
 
-                // 2. Ažuriraj ParentCode za sve koji ga imaju
                 foreach (var cat in categories.Where(c => !string.IsNullOrEmpty(c.ParentCode)))
                 {
                     var entity = await _context.Categories.FindAsync(cat.Code);
@@ -102,21 +100,6 @@ namespace PFM.Infrastructure.Services
             {
                 result.Errors.Add($"CSV parsing failed: {csvEx.Message}");
             }
-            // Ako hoćeš i generalni exception, otkomentariši ovo:
-            /*
-            catch (Exception ex)
-            {
-                var messages = new List<string>();
-                Exception currentEx = ex;
-                while (currentEx != null)
-                {
-                    messages.Add(currentEx.Message);
-                    currentEx = currentEx.InnerException;
-                }
-                var fullMessage = string.Join(" --> ", messages);
-                result.Errors.Add($"Import failed: {fullMessage}");
-            }
-            */
 
             return result;
         }

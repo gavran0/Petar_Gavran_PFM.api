@@ -20,7 +20,7 @@ namespace Petar_Gavran_PFM.api.Middlewares
         {
             try
             {
-                await _next(context); // pusti dalje pipeline
+                await _next(context);
             }
             catch (Exception ex)
             {
@@ -32,7 +32,6 @@ namespace Petar_Gavran_PFM.api.Middlewares
                 var response = new
                 {
                     error = "An unexpected error occurred.",
-                    // Detalje možeš isključiti za production:
                     details = ex.Message
                 };
 

@@ -29,7 +29,6 @@ namespace PFM.Infrastructure.Services
             }
             else
             {
-                // Ako nema parentCode, dobij root kategorije (one bez roditelja)
                 query = query.Where(c => c.ParentCode == null || c.ParentCode == "");
             }
 

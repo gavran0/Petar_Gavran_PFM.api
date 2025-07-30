@@ -13,7 +13,6 @@ public class CustomDateConverter : DefaultTypeConverter
             return DateTime.SpecifyKind(date, DateTimeKind.Utc);
         }
 
-        // pokušaj i druge formate ako treba ili baci exception
         throw new TypeConverterException(this, memberMapData, text, row.Context, "Invalid date format");
     }
 }

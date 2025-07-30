@@ -23,7 +23,6 @@ namespace PFM.Infrastructure.CSV.Converters
                     return (MccCode)code;
             }
 
-            // Možeš logovati nepoznat MCC ili vratiti null
             return null;
         }
     }

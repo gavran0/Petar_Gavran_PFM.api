@@ -10,17 +10,17 @@ namespace PFM.Domain.Entities
 {
     public class Transactions
     {
-        public string Id { get; set; }                         // "abc123"
-        public string BeneficiaryName { get; set; }            // "Shell"
-        public DateTime Date { get; set; }                     // "2023-07-01"
-        public Direction Direction { get; set; }                  // "debit" / "credit"
-        public double Amount { get; set; }                    // 50.00
-        public string Description { get; set; }              // "Fuel payment"
+        public string Id { get; set; }
+        public string BeneficiaryName { get; set; }
+        public DateTime Date { get; set; }
+        public Direction Direction { get; set; }
+        public double Amount { get; set; }
+        public string Description { get; set; }
 
         [StringLength(3, MinimumLength = 3)]
-        public string Currency { get; set; }                   // "USD" or "RSD"
-        public MccCode? Mcc { get; set; }                           // Merchant Category Code (npr. 5811)
-        public TransactionKind Kind { get; set; }                       // "payment", "fee", "transfer", itd.
+        public string Currency { get; set; }
+        public MccCode? Mcc { get; set; }
+        public TransactionKind Kind { get; set; }
         public string? CatCode { get; set; }
         public Category? Category { get; set; }
         public List<TransactionSplit> Splits { get; set; } = new List<TransactionSplit>();

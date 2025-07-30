@@ -13,7 +13,6 @@ namespace PFM.Infrastructure.Services
     {
         private readonly PFMDbContext _context;
 
-        // Konstruktor prima DbContext i čuva ga u polju
         public CsvTransactionImporter(PFMDbContext context)
         {
             _context = context;
@@ -35,7 +34,7 @@ namespace PFM.Infrastructure.Services
                 {
                     HasHeaderRecord = true,
                     Delimiter = ";",
-                    MissingFieldFound = null, // Ne baca exception ako fali polje
+                    MissingFieldFound = null,
                     HeaderValidated = null
                 });
 
@@ -52,7 +51,6 @@ namespace PFM.Infrastructure.Services
 
                 _context.Transactions.AddRange(transactions);
                 await _context.SaveChangesAsync();
-                // TODO: Ovde dodaj upis u bazu kad povežemo EF Core
             }
             catch (HeaderValidationException hex)
             {
@@ -62,18 +60,6 @@ namespace PFM.Infrastructure.Services
             {
                 result.Errors.Add($"CSV parsing failed: {csvEx.Message}");
             }
-            //catch (Exception ex)
-            //{
-            //    var messages = new List<string>();
-            //    Exception currentEx = ex;
-            //    while (currentEx != null)
-            //    {
-            //        messages.Add(currentEx.Message);
-            //        currentEx = currentEx.InnerException;
-            //    }
-            //    var fullMessage = string.Join(" --> ", messages);
-            //    result.Errors.Add($"Import failed: {fullMessage}");
-            //}
 
             return result;
         }

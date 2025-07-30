@@ -7,9 +7,9 @@ namespace PFM.Domain.Entities
     public class Category
     {
         [Key]
-        public string Code { get; set; }              // Primarni ključ
-        public string Name { get; set; }              // Ime kategorije
-        public string? ParentCode { get; set; }       // Foreign key ka nadkategoriji (ako postoji)
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string? ParentCode { get; set; }
 
         [ForeignKey("ParentCode")]
         public Category? ParentCategory { get; set; }

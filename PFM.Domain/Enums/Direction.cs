@@ -10,7 +10,7 @@ namespace PFM.Domain.Enums
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Direction
     {
-        d, // Debit
-        c  // Credit
+        d,
+        c
     }
 }

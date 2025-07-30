@@ -38,17 +38,6 @@ namespace PFM.Infrastructure.Services
             if (endDate.HasValue)
                 query = query.Where(t => t.Date <= endDate.Value.Date);
 
-            //if (kind != null && kind.Any())
-            //{
-            //    var parsedKinds = kind
-            //        .Select(k => Enum.TryParse<TransactionKind>(k, true, out var kind) ? (TransactionKind?)kind : null)
-            //        .Where(k => k.HasValue)
-            //        .Select(k => k.Value)
-            //        .ToList();
-
-            //    query = query.Where(t => parsedKinds.Contains(t.Kind));
-            //}
-
             if (!string.IsNullOrWhiteSpace(kind) && Enum.TryParse<TransactionKind>(kind, true, out var parsedKind))
             {
                 query = query.Where(t => t.Kind == parsedKind);
@@ -114,7 +103,6 @@ namespace PFM.Infrastructure.Services
             if (transaction == null)
                 return false;
 
-            // Validacija svih kategorija
             var validCodes = await _context.Categories
                 .Where(c => splits.Select(s => s.CatCode).Contains(c.Code))
                 .Select(c => c.Code)
@@ -123,15 +111,12 @@ namespace PFM.Infrastructure.Services
             if (validCodes.Count != splits.Count)
                 throw new BusinessValidationException("One or more category codes are invalid.", 440);
 
-            // Validacija suma
             var totalSplitAmount = splits.Sum(s => s.Amount);
             if (totalSplitAmount > transaction.Amount)
                 throw new BusinessValidationException("Total split amount exceeds transaction amount.", 440);
 
-            // Briši prethodne splitove
             _context.TransactionSplit.RemoveRange(transaction.Splits);
 
-            // Dodaj nove splitove
             var newSplits = splits.Select(s => new TransactionSplit
             {
                 TransactionId = transactionId,
